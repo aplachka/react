@@ -1,22 +1,19 @@
 import React from 'react'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import TypoGraphy from '@material-ui/core/Typography'
+import { Toolbar, AppBar, Typography } from '@material-ui/core';
 
 
 const NavBar = () => {
   return (
-    <div>
-      <AppBar color="primary" position="static">
-        <Toolbar>
-          <TypoGraphy
-            color="inherit"
-          >
-            React simple application
-          </TypoGraphy>
-        </Toolbar>
-      </AppBar>
-    </div>
+    <AppBar color="primary" position="static">
+      <Toolbar>
+        <Typography
+          color="inherit"
+        >
+          React simple application
+        </Typography>
+      </Toolbar>
+    </AppBar>
+
   )
 }
 
