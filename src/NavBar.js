@@ -9,7 +9,7 @@ const NavBar = () => {
     <div>
       <AppBar color="primary" position="static">
         <Toolbar>
-          <TypoGraphy variant="title"
+          <TypoGraphy
             color="inherit"
           >
             React simple application
