@@ -1,11 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import { Card, CardContent, Typography, CardHeader } from '@material-ui/core';
+import { Card, CardContent, Typography, CardHeader, withStyles } from '@material-ui/core';
+import Title from './Title';
 
 const styles = {
     card: {
         maxWidth: 345,
+
     },
     root: {
         padding: "100px"
@@ -16,16 +17,24 @@ const styles = {
 const Content = (props) => {
     const { classes } = props;
 
+    const [checked, setChecked] = React.useState(false);
+
+    const handleChange = (event) => {
+        setChecked(event.target.checked);
+    };
+
     return (
-        <div className={classes.root}>
-            <Card className={classes.card}>
+        <div className={classes.root} >
+            <Card className={classes.card} style={{ backgroundColor: checked ? 'blue' : '' }}>
                 <CardHeader
-                    title='Task1'
-                >
+                    title={<Title
+                        title="Task 3"
+                        handler={handleChange}
+                    />}>
                 </CardHeader>
                 <CardContent>
                     <Typography component="p">
-                        It's my first react task
+                        Hello World
                     </Typography>
                 </CardContent>
             </Card>
