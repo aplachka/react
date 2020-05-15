@@ -28,6 +28,7 @@ const Content = (props) => {
             <Card className={classes.card} style={{ backgroundColor: checked ? 'blue' : '' }}>
                 <CardHeader
                     title={<Title
+                        title="Task 3"
                         handler={handleChange}
                     />}>
                 </CardHeader>

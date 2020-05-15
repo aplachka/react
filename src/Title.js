@@ -17,7 +17,7 @@ const Title = (props) => {
     const { classes } = props;
 
     return (<div className={classes.root} >
-        <h3 className={classes.h3} >Task 2</h3>
+        <h3 className={classes.h3} >{props.title}</h3>
         <Checkbox
             color='primary'
             onChange={props.handler}
