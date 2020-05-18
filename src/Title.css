@@ -8,6 +8,8 @@
     display: block;
     font-size: 1.17em;
     font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .root input {
     font-size: 1.17em;
