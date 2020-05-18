@@ -1,0 +1,11 @@
+.card {
+    max-width: 345px;
+}
+
+.content {
+    padding: 100px;
+}
+
+.hidden {
+    display: none;
+}

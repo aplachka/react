@@ -1,0 +1,30 @@
+.MuiCardHeader-content {
+    width: 100%;
+}
+.root h3 {
+    flex-grow: 1;
+    margin: 0;
+    padding: 9px 0;
+    display: block;
+    font-size: 1.17em;
+    font-weight: bold;
+}
+.root input {
+    font-size: 1.17em;
+    font-weight: bold;
+    flex-grow: 1;
+    display: block;
+    width: 100%;
+}
+.root .view {
+    display: flex;
+}
+.root .editor {
+    display: none;
+}
+.root.edit .view {
+    display: none;
+}
+.root.edit .editor {
+    display: flex;
+}

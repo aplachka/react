@@ -9,7 +9,7 @@ class App extends Component {
     return (
       <>
         <NavBar />
-        <Content />
+        <Content title="Task 3" content="This is task 3" />
       </>
     );
   }
