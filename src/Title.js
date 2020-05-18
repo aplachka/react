@@ -1,36 +1,39 @@
 import React from "react";
-import { Checkbox, IconButton } from "@material-ui/core";
-import { AiOutlineSave, AiOutlineClose, AiFillEdit } from "react-icons/ai";
+import { Checkbox, IconButton, Button } from "@material-ui/core";
+import { Save, Clear, Edit } from '@material-ui/icons';
 import "./Title.css";
 
 const Title = (props) => {
-    const handleEditMode = (edit) => {
-        props.setEditing(edit);
-        props.setChecked(false);
-    };
 
-    return (<div className={(props.editMode ? "root edit" : "root")} >
-        <div className="view">
-            <h3>{props.title}</h3>
-            <IconButton onClick={() => handleEditMode(true)}>  <AiFillEdit />
-            </IconButton>
-            <Checkbox
-                color="primary"
-                checked={props.checked}
-                onChange={props.handler}
-            />
-        </div>
-        <div className="editor"><input
+    const handleEditMode = (edit) => {
+        props.onEditing(edit);
+        props.onChecked(false);
+    };
+    
+    return props.editMode ? (<div className="root">
+        <input
             type="text"
             name="title"
             defaultValue={props.title}
         />
-            <IconButton type=
-                "submit" >  <AiOutlineSave />
+        <Button type="submit">
+            <Save />
+        </Button>
+        <IconButton type="reset" onClick={() => handleEditMode(false)}>
+            <Clear />
+        </IconButton>
+    </div>) :
+        (<div className="root">
+            <h3>{props.title}</h3>
+            <IconButton type="button" onClick={() => handleEditMode(true)}>
+                <Edit />
             </IconButton>
-            <IconButton type="reset" onClick={() => handleEditMode(false)}>
-                < AiOutlineClose /></IconButton>
-        </div>
-    </div>);
+            <Checkbox
+                color="primary"
+                checked={props.checked}
+                onChange={(event) => props.onChecked(event.target.checked)}
+            />
+        </div>);
+
 }
 export default Title;
