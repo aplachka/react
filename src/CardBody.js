@@ -1,26 +1,23 @@
-import React from "react";
-import { CardContent, Typography } from "@material-ui/core";
-
+import React from 'react';
+import { CardContent, Typography, TextareaAutosize } from '@material-ui/core';
 
 const CardBody = (props) => {
-
     return (
         <CardContent>
-
-            {props.editMode ?
-                <input
-                    type="text"
+            {props.editMode ? (
+                <TextareaAutosize
+                    rowsMax={4}
+                    aria-label="maximum height"
                     name="content"
                     className="MuiTypography-body1"
                     defaultValue={props.text}
-                /> :
-                <Typography component="p" >
+                />
+            ) : (
+                <Typography component="p" className="body">
                     {props.text}
                 </Typography>
-
-            }
+            )}
         </CardContent>
-    )
-
-}
+    );
+};
 export default CardBody;
