@@ -1,29 +1,36 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles, Checkbox } from '@material-ui/core';
-
-const styles = {
-    root: {
-        display: "flex",
-    },
-    h3: {
-        flexGrow: 1
-    }
-
-};
+import { Checkbox, IconButton, Button } from '@material-ui/core';
+import { Save, Clear, Edit } from '@material-ui/icons';
+import './Title.css';
 
 const Title = (props) => {
+    const handleEditMode = (edit) => {
+        props.onEditing(edit);
+        props.onChecked(false);
+    };
 
-    const { classes } = props;
-
-    return (<div className={classes.root} >
-        <h3 className={classes.h3} >{props.title}</h3>
-        <Checkbox
-            color='primary'
-            onChange={props.handler}
-        /></div>);
-}
-Title.propTypes = {
-    classes: PropTypes.object.isRequired,
+    return props.editMode ? (
+        <div className="root">
+            <input type="text" name="title" defaultValue={props.title} />
+            <Button type="submit">
+                <Save />
+            </Button>
+            <IconButton type="reset" onClick={() => handleEditMode(false)}>
+                <Clear />
+            </IconButton>
+        </div>
+    ) : (
+        <div className="root">
+            <h3>{props.title}</h3>
+            <IconButton type="button" onClick={() => handleEditMode(true)}>
+                <Edit />
+            </IconButton>
+            <Checkbox
+                color="primary"
+                checked={props.checked}
+                onChange={(event) => props.onChecked(event.target.checked)}
+            />
+        </div>
+    );
 };
-export default withStyles(styles)(Title);
+export default Title;
