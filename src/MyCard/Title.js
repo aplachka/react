@@ -22,11 +22,11 @@ const Title = (props) => {
     ) : (
         <div className="root">
             <h3>{props.title}</h3>
-            {props.editAllowed ? (
+            {props.editAllowed && (
                 <IconButton type="button" onClick={() => handleEditMode(true)}>
                     <Edit />
                 </IconButton>
-            ) : null}
+            )}
             <Checkbox
                 color="primary"
                 checked={props.checked}
