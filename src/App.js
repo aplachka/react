@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-import NavBar from './NavBar';
-import MyCard from './MyCard';
+import Main from './Main';
+import Header from './Header';
+import { CssBaseline } from '@material-ui/core';
 
 class App extends Component {
     render() {
         return (
             <>
-                <NavBar />
-                <MyCard title="Task 3" content="This is task 3" />
+                <CssBaseline />
+                <Header />
+                <Main />
             </>
         );
     }

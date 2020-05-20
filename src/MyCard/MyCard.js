@@ -10,6 +10,10 @@ const MyCard = (props) => {
     const [content, setContent] = React.useState(props.content || '');
     const [editing, setEditing] = React.useState(false);
 
+    React.useEffect(() => {
+        if (props.readOnlyCheckBox === true) setEditing(false);
+    }, [props.readOnlyCheckBox]);
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const content = event.target.elements.content.value;
@@ -28,6 +32,7 @@ const MyCard = (props) => {
                     title={
                         <Title
                             title={title}
+                            editAllowed={!props.readOnlyCheckBox}
                             editMode={editing}
                             onEditing={setEditing}
                             onChecked={setChecked}
