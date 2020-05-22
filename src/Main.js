@@ -8,18 +8,26 @@ import {
 } from '@material-ui/core';
 import MyCard from './MyCard/MyCard';
 import cards from './common/constants/Cards';
+import styled from 'styled-components';
 
 const Main = () => {
     const [checked, setChecked] = React.useState(false);
 
+    const StyledLabel = styled(FormControlLabel)`
+        && {
+            color: ${checked ? 'green' : 'blue'};
+        }
+        && .MuiCheckbox-root {
+            color: ${checked ? 'green' : 'blue'};
+        }
+    `;
     return (
         <Container>
-            <FormControlLabel
+            <StyledLabel
                 control={
                     <Checkbox
                         checked={checked}
                         onChange={(event) => setChecked(event.target.checked)}
-                        color="primary"
                     />
                 }
                 label="Только просмотр"
