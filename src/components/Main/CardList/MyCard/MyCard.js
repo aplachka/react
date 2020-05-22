@@ -1,6 +1,6 @@
 import React from 'react';
-import { Card, CardHeader } from '@material-ui/core';
-import Title from './Title';
+import { Card } from '@material-ui/core';
+import MyCardHeader from './MyCardHeader';
 import CardBody from './CardBody';
 import './MyCard.css';
 
@@ -11,8 +11,8 @@ const MyCard = (props) => {
     const [editing, setEditing] = React.useState(false);
 
     React.useEffect(() => {
-        if (props.readOnlyCheckBox === true) setEditing(false);
-    }, [props.readOnlyCheckBox]);
+        if (props.editAllowed !== true) setEditing(false);
+    }, [props.editAllowed]);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -23,22 +23,24 @@ const MyCard = (props) => {
         setEditing(false);
     };
 
+    const handleChecked = (checked) => {
+        props.onChecked(checked);
+        setChecked(checked);
+    };
+
     return (
         <form onSubmit={handleSubmit} className="content">
             <Card
                 className="card"
                 style={{ backgroundColor: checked && 'blue' }}>
-                <CardHeader
-                    title={
-                        <Title
-                            title={title}
-                            editAllowed={!props.readOnlyCheckBox}
-                            editMode={editing}
-                            onEditing={setEditing}
-                            onChecked={setChecked}
-                            checked={checked}
-                        />
-                    }></CardHeader>
+                <MyCardHeader
+                    title={title}
+                    editAllowed={props.editAllowed}
+                    editMode={editing}
+                    onEditing={setEditing}
+                    onChecked={handleChecked}
+                    checked={checked}
+                />
                 <CardBody text={content} editMode={editing} />
             </Card>
         </form>
