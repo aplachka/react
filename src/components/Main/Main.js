@@ -16,12 +16,28 @@ const Main = () => {
     const [checked, setChecked] = React.useState(false);
     const [cards, setCards] = React.useState(CARDS);
 
-    const handleChecked = (id) => (checked) => {
-        cards.filter((v) => v.id === id).map((v) => (v.checked = checked));
+    const handleChecked = (id, checked) => {
+        const card = Object.assign(
+            cards.find((v) => v.id === id),
+            { checked },
+        );
+        setCards(
+            Object.assign(cards.slice(), {
+                [cards.findIndex((v) => v.id === card.id)]: card,
+            }),
+        );
     };
 
     const handleDeleteButton = () => {
         setCards(cards.filter((v) => !v.checked));
+    };
+
+    const handleSubmit = (card) => {
+        setCards(
+            Object.assign(cards.slice(), {
+                [cards.findIndex((v) => v.id === card.id)]: card,
+            }),
+        );
     };
 
     return (
@@ -43,6 +59,7 @@ const Main = () => {
 
             <CardList
                 cardList={cards}
+                onSubmit={handleSubmit}
                 onChecked={handleChecked}
                 editAllowed={!checked}
             />

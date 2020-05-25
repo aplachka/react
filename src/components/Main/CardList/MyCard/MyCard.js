@@ -5,9 +5,6 @@ import CardBody from './CardBody';
 import './MyCard.css';
 
 const MyCard = (props) => {
-    const [checked, setChecked] = React.useState(false);
-    const [title, setTitle] = React.useState(props.title || '');
-    const [content, setContent] = React.useState(props.content || '');
     const [editing, setEditing] = React.useState(false);
 
     React.useEffect(() => {
@@ -18,30 +15,33 @@ const MyCard = (props) => {
         event.preventDefault();
         const content = event.target.elements.content.value;
         const title = event.target.elements.title.value;
-        setTitle(title);
-        setContent(content);
+        props.onSubmit({
+            id: props.id,
+            caption: title,
+            text: content,
+            checked: props.checked,
+        });
         setEditing(false);
     };
 
     const handleChecked = (checked) => {
-        props.onChecked(checked);
-        setChecked(checked);
+        props.onChecked(props.id, checked);
     };
 
     return (
         <form onSubmit={handleSubmit} className="content">
             <Card
                 className="card"
-                style={{ backgroundColor: checked && 'blue' }}>
+                style={{ backgroundColor: props.checked && 'blue' }}>
                 <MyCardHeader
-                    title={title}
+                    title={props.title}
                     editAllowed={props.editAllowed}
                     editMode={editing}
                     onEditing={setEditing}
                     onChecked={handleChecked}
-                    checked={checked}
+                    checked={props.checked}
                 />
-                <CardBody text={content} editMode={editing} />
+                <CardBody text={props.content} editMode={editing} />
             </Card>
         </form>
     );
