@@ -8,12 +8,11 @@ const CardList = (props) => {
             {props.cardList.map((card) => (
                 <GridListTile key={card.id}>
                     <MyCard
-                        id={card.id}
                         title={card.caption}
                         content={card.text}
                         editAllowed={props.editAllowed}
-                        onChecked={props.onChecked}
-                        onSubmit={props.onSubmit}
+                        onChecked={props.onChecked(card.id)}
+                        onSubmit={props.onSubmit(card.id)}
                         checked={card.checked}
                     />
                 </GridListTile>

@@ -16,15 +16,11 @@ const Main = () => {
     const [checked, setChecked] = React.useState(false);
     const [cards, setCards] = React.useState(CARDS);
 
-    const handleChecked = (id, checked) => {
-        const card = Object.assign(
-            cards.find((v) => v.id === id),
-            { checked },
-        );
+    const handleChecked = (id) => (checked) => {
         setCards(
-            Object.assign(cards.slice(), {
-                [cards.findIndex((v) => v.id === card.id)]: card,
-            }),
+            cards.map((_card) =>
+                _card.id === id ? { ..._card, checked } : _card,
+            ),
         );
     };
 
@@ -32,12 +28,9 @@ const Main = () => {
         setCards(cards.filter((v) => !v.checked));
     };
 
-    const handleSubmit = (card) => {
-        setCards(
-            Object.assign(cards.slice(), {
-                [cards.findIndex((v) => v.id === card.id)]: card,
-            }),
-        );
+    const handleSubmit = (id) => (title, content, checked) => {
+        const card = { id, caption: title, text: content, checked };
+        setCards(cards.map((_card) => (_card.id === card.id ? card : _card)));
     };
 
     return (

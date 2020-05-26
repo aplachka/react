@@ -15,17 +15,8 @@ const MyCard = (props) => {
         event.preventDefault();
         const content = event.target.elements.content.value;
         const title = event.target.elements.title.value;
-        props.onSubmit({
-            id: props.id,
-            caption: title,
-            text: content,
-            checked: props.checked,
-        });
+        props.onSubmit(title, content, props.checked);
         setEditing(false);
-    };
-
-    const handleChecked = (checked) => {
-        props.onChecked(props.id, checked);
     };
 
     return (
@@ -38,7 +29,7 @@ const MyCard = (props) => {
                     editAllowed={props.editAllowed}
                     editMode={editing}
                     onEditing={setEditing}
-                    onChecked={handleChecked}
+                    onChecked={props.onChecked}
                     checked={props.checked}
                 />
                 <CardBody text={props.content} editMode={editing} />
