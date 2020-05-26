@@ -1,0 +1,30 @@
+import React from 'react';
+import styled from 'styled-components';
+import { FormControlLabel, Checkbox } from '@material-ui/core';
+
+const colorify = (checked) => (checked ? 'green' : 'blue');
+
+const StyledFormControlLabel = styled(FormControlLabel)`
+    && {
+        color: ${(props) => colorify(props.checked)};
+    }
+    && .MuiCheckbox-root {
+        color: ${(props) => colorify(props.checked)};
+    }
+`;
+
+const StyledCheckBox = (props) => {
+    return (
+        <StyledFormControlLabel
+            checked={props.checked}
+            control={
+                <Checkbox
+                    checked={props.checked}
+                    onChange={(event) => props.onChecked(event.target.checked)}
+                />
+            }
+            label={props.label}
+        />
+    );
+};
+export default StyledCheckBox;

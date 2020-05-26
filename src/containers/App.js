@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Main from './Main';
-import Header from './Header';
+import Main from '../components/Main/Main';
+import Header from '../components/Header/Header';
 import { CssBaseline } from '@material-ui/core';
 
 class App extends Component {
