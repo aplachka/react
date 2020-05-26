@@ -26,10 +26,7 @@ const CreateCardDialog = (props) => {
     };
 
     return (
-        <Dialog
-            open={props.open}
-            onClose={props.onClose}
-            aria-labelledby="form-dialog-title">
+        <Dialog open={props.open} aria-labelledby="form-dialog-title">
             <DialogTitle id="form-dialog-title">Add new card</DialogTitle>
             <DialogContent>
                 <TextField

@@ -19,15 +19,15 @@ const Main = () => {
     const [open, setOpen] = React.useState(false);
 
     const handleChecked = (id) => (checked) => {
-        cards.filter((v) => v.id === id).map((v) => (v.checked = checked));
+        setCards(
+            cards.map((_card) =>
+                _card.id === id ? { ..._card, checked } : _card,
+            ),
+        );
     };
 
     const handleDeleteButton = () => {
         setCards(cards.filter((v) => !v.checked));
-    };
-
-    const handleClickOpen = () => {
-        setOpen(true);
     };
 
     const handleClose = () => {
@@ -40,9 +40,15 @@ const Main = () => {
             id: id,
             caption: title,
             text: content,
+            checked: false,
         };
         setCards([card, ...cards]);
         setOpen(false);
+    };
+
+    const handleSubmit = (id) => (title, content, checked) => {
+        const card = { id, caption: title, text: content, checked };
+        setCards(cards.map((_card) => (_card.id === card.id ? card : _card)));
     };
 
     return (
@@ -63,12 +69,11 @@ const Main = () => {
                 <Button
                     variant="contained"
                     color="primary"
-                    onClick={handleClickOpen}
+                    onClick={() => setOpen(true)}
                     style={{ marginLeft: 20 }}
                     startIcon={<Add />}>
                     Add new card
                 </Button>
-
                 <CreateCardDialog
                     open={open}
                     onClose={handleClose}
@@ -78,6 +83,7 @@ const Main = () => {
 
             <CardList
                 cardList={cards}
+                onSubmit={handleSubmit}
                 onChecked={handleChecked}
                 editAllowed={!checked}
             />

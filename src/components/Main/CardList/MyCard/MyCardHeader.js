@@ -6,7 +6,7 @@ import './MyCardHeader.css';
 const MyCardHeader = (props) => {
     const handleEditMode = (edit) => {
         props.onEditing(edit);
-        props.onChecked(false);
+        props.checked && props.onChecked(false);
     };
 
     return (
