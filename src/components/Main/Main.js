@@ -6,6 +6,7 @@ import StyledCheckBox from './StyledCheckBox';
 import CARDS from '../../common/constants/Cards';
 import styled from 'styled-components';
 import CreateCardDialog from './CreateCardDialog';
+import { v4 as uuidv4 } from 'uuid';
 
 const StyledDiv = styled.div`
      {
@@ -16,7 +17,7 @@ const StyledDiv = styled.div`
 const Main = () => {
     const [checked, setChecked] = React.useState(false);
     const [cards, setCards] = React.useState(CARDS);
-    const [open, setOpen] = React.useState(false);
+    const [isCreacteDialogOpen, setOpen] = React.useState(false);
 
     const handleChecked = (id) => (checked) => {
         setCards(
@@ -35,9 +36,8 @@ const Main = () => {
     };
 
     const handleCreate = (title, content) => {
-        const id = Math.max(...cards.map((v) => v.id)) + 1;
         const card = {
-            id: id,
+            id: uuidv4(),
             caption: title,
             text: content,
             checked: false,
@@ -75,7 +75,7 @@ const Main = () => {
                     Add new card
                 </Button>
                 <CreateCardDialog
-                    open={open}
+                    open={isCreacteDialogOpen}
                     onClose={handleClose}
                     onCreate={handleCreate}
                 />
