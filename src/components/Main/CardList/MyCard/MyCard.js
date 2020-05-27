@@ -3,6 +3,7 @@ import { Card } from '@material-ui/core';
 import MyCardHeader from './MyCardHeader';
 import CardBody from './CardBody';
 import './MyCard.css';
+import WithLoadingDelay from '../../../../hoc/WithLoadingDelay';
 
 const MyCard = (props) => {
     const [editing, setEditing] = React.useState(false);
@@ -20,21 +21,23 @@ const MyCard = (props) => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="content">
-            <Card
-                className="card"
-                style={{ backgroundColor: props.checked && 'blue' }}>
-                <MyCardHeader
-                    title={props.title}
-                    editAllowed={props.editAllowed}
-                    editMode={editing}
-                    onEditing={setEditing}
-                    onChecked={props.onChecked}
-                    checked={props.checked}
-                />
-                <CardBody text={props.content} editMode={editing} />
-            </Card>
-        </form>
+        <WithLoadingDelay>
+            <form onSubmit={handleSubmit} className="content">
+                <Card
+                    className="card"
+                    style={{ backgroundColor: props.checked && 'blue' }}>
+                    <MyCardHeader
+                        title={props.title}
+                        editAllowed={props.editAllowed}
+                        editMode={editing}
+                        onEditing={setEditing}
+                        onChecked={props.onChecked}
+                        checked={props.checked}
+                    />
+                    <CardBody text={props.content} editMode={editing} />
+                </Card>
+            </form>
+        </WithLoadingDelay>
     );
 };
 
