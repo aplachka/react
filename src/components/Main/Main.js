@@ -1,10 +1,12 @@
 import React from 'react';
 import { Container, Button } from '@material-ui/core';
 import CardList from './CardList/CardList';
-import DeleteIcon from '@material-ui/icons/Delete';
+import { Delete, Add } from '@material-ui/icons';
 import StyledCheckBox from './StyledCheckBox';
 import CARDS from '../../common/constants/Cards';
 import styled from 'styled-components';
+import CreateCardDialog from './CreateCardDialog';
+import { v4 as uuidv4 } from 'uuid';
 
 const StyledDiv = styled.div`
      {
@@ -15,6 +17,7 @@ const StyledDiv = styled.div`
 const Main = () => {
     const [checked, setChecked] = React.useState(false);
     const [cards, setCards] = React.useState(CARDS);
+    const [isCreacteDialogOpen, setOpen] = React.useState(false);
 
     const handleChecked = (id) => (checked) => {
         setCards(
@@ -28,6 +31,21 @@ const Main = () => {
         setCards(cards.filter((v) => !v.checked));
     };
 
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const handleCreate = (title, content) => {
+        const card = {
+            id: uuidv4(),
+            caption: title,
+            text: content,
+            checked: false,
+        };
+        setCards([card, ...cards]);
+        setOpen(false);
+    };
+
     const handleSubmit = (id) => (title, content, checked) => {
         const card = { id, caption: title, text: content, checked };
         setCards(cards.map((_card) => (_card.id === card.id ? card : _card)));
@@ -37,7 +55,7 @@ const Main = () => {
         <Container>
             <StyledDiv>
                 <StyledCheckBox
-                    label="Только просмотр"
+                    label="View only"
                     checked={checked}
                     onChecked={(checked) => setChecked(checked)}
                 />
@@ -45,9 +63,22 @@ const Main = () => {
                     variant="contained"
                     color="primary"
                     onClick={handleDeleteButton}
-                    startIcon={<DeleteIcon />}>
-                    Удалить выбранные карточки
+                    startIcon={<Delete />}>
+                    Delete selected cards
                 </Button>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => setOpen(true)}
+                    style={{ marginLeft: 20 }}
+                    startIcon={<Add />}>
+                    Add new card
+                </Button>
+                <CreateCardDialog
+                    open={isCreacteDialogOpen}
+                    onClose={handleClose}
+                    onCreate={handleCreate}
+                />
             </StyledDiv>
 
             <CardList

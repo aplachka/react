@@ -3,10 +3,17 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
+import {
+    unstable_createMuiStrictModeTheme,
+    ThemeProvider,
+} from '@material-ui/core/styles';
 
+const theme = unstable_createMuiStrictModeTheme();
 ReactDOM.render(
     <React.StrictMode>
-        <App />
+        <ThemeProvider theme={theme}>
+            <App />
+        </ThemeProvider>
     </React.StrictMode>,
     document.getElementById('root'),
 );
