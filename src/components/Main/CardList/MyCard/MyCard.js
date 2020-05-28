@@ -3,6 +3,7 @@ import { Card } from '@material-ui/core';
 import MyCardHeader from './MyCardHeader';
 import CardBody from './CardBody';
 import './MyCard.css';
+import withLoadingDelay from '../../../../hoc/WithLoadingDelay';
 
 const MyCard = (props) => {
     const [editing, setEditing] = React.useState(false);
@@ -38,4 +39,4 @@ const MyCard = (props) => {
     );
 };
 
-export default MyCard;
+export default withLoadingDelay(MyCard);
