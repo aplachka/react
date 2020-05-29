@@ -1,4 +1,4 @@
-export const CARDS = [
+const CARDS = [
     {
         id: 1,
         caption: 'task1',

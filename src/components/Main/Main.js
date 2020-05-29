@@ -3,10 +3,9 @@ import { Container, Button } from '@material-ui/core';
 import CardList from './CardList/CardList';
 import { Delete, Add } from '@material-ui/icons';
 import StyledCheckBox from './StyledCheckBox';
-import CARDS from '../../common/constants/Cards';
 import styled from 'styled-components';
 import CreateCardDialog from './CreateCardDialog';
-import { v4 as uuidv4 } from 'uuid';
+import AppContext from '../../context/app-context';
 
 const StyledDiv = styled.div`
      {
@@ -15,42 +14,17 @@ const StyledDiv = styled.div`
 `;
 
 const Main = () => {
+    const context = React.useContext(AppContext);
     const [checked, setChecked] = React.useState(false);
-    const [cards, setCards] = React.useState(CARDS);
     const [isCreacteDialogOpen, setOpen] = React.useState(false);
-
-    const handleChecked = (id) => (checked) => {
-        setCards(
-            cards.map((_card) =>
-                _card.id === id ? { ..._card, checked } : _card,
-            ),
-        );
-    };
-
-    const handleDeleteButton = () => {
-        setCards(cards.filter((v) => !v.checked));
-    };
 
     const handleClose = () => {
         setOpen(false);
     };
-
     const handleCreate = (title, content) => {
-        const card = {
-            id: uuidv4(),
-            caption: title,
-            text: content,
-            checked: false,
-        };
-        setCards([card, ...cards]);
+        context.create(title, content);
         setOpen(false);
     };
-
-    const handleSubmit = (id) => (title, content, checked) => {
-        const card = { id, caption: title, text: content, checked };
-        setCards(cards.map((_card) => (_card.id === card.id ? card : _card)));
-    };
-
     return (
         <Container>
             <StyledDiv>
@@ -62,7 +36,7 @@ const Main = () => {
                 <Button
                     variant="contained"
                     color="primary"
-                    onClick={handleDeleteButton}
+                    onClick={context.remove}
                     startIcon={<Delete />}>
                     Delete selected cards
                 </Button>
@@ -81,12 +55,7 @@ const Main = () => {
                 />
             </StyledDiv>
 
-            <CardList
-                cardList={cards}
-                onSubmit={handleSubmit}
-                onChecked={handleChecked}
-                editAllowed={!checked}
-            />
+            <CardList editAllowed={!checked} />
         </Container>
     );
 };
