@@ -4,6 +4,7 @@ import MyCardHeader from './MyCardHeader';
 import CardBody from './CardBody';
 import './MyCard.css';
 import withLoadingDelay from '../../../../hoc/WithLoadingDelay';
+import PropTypes from 'prop-types';
 
 const MyCard = (props) => {
     const [editing, setEditing] = React.useState(false);
@@ -39,4 +40,12 @@ const MyCard = (props) => {
     );
 };
 
+MyCard.propTypes = {
+    editAllowed: PropTypes.bool,
+    title: PropTypes.string,
+    content: PropTypes.string,
+    onChecked: PropTypes.func,
+    checked: PropTypes.bool,
+    onSubmit: PropTypes.func,
+};
 export default withLoadingDelay(MyCard);
