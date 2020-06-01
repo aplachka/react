@@ -1,6 +1,6 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import CARDS from '../common/constants/Cards';
+import axios from 'axios';
 
 const AppContext = React.createContext({
     cards: [],
@@ -12,7 +12,26 @@ const AppContext = React.createContext({
 });
 
 export const AppContextProvider = (props) => {
-    const [cards, setCards] = React.useState(CARDS);
+    const [cards, setCards] = React.useState([]);
+
+    React.useEffect(() => {
+        axios
+            .get(
+                'https://raw.githubusercontent.com/BrunnerLivio/PokemonDataGraber/master/output.json',
+            )
+            .then((response) => {
+                setCards(
+                    response.data.slice(0, 15).map((v) => {
+                        return {
+                            id: v.Number,
+                            caption: v.Name,
+                            text: v.About,
+                            checked: false,
+                        };
+                    }),
+                );
+            });
+    }, []);
 
     const check = (id, checked) => {
         setCards(
