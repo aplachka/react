@@ -6,7 +6,7 @@ const CardBody = (props) => {
         <CardContent>
             {props.editMode ? (
                 <TextareaAutosize
-                    rowsMax={4}
+                    rowsMax={3}
                     aria-label="maximum height"
                     name="content"
                     className="MuiTypography-body1"
