@@ -15,9 +15,13 @@ export const AppContextProvider = (props) => {
     const [cards, setCards] = React.useState([]);
 
     React.useEffect(() => {
+        const source = axios.CancelToken.source();
         axios
             .get(
                 'https://raw.githubusercontent.com/BrunnerLivio/PokemonDataGraber/master/output.json',
+                {
+                    cancelToken: source.token,
+                },
             )
             .then((response) => {
                 setCards(
@@ -31,6 +35,7 @@ export const AppContextProvider = (props) => {
                     }),
                 );
             });
+        return () => source.cancel();
     }, []);
 
     const check = (id, checked) => {

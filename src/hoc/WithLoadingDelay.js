@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 const withLoadingDelay = (WrappedComponent) => (props) => {
     const [loading, setLoading] = React.useState(true);
-
-    setTimeout(() => setLoading(false), 2000);
+    useEffect(() => {
+        const timeOut = setTimeout(() => setLoading(false), 2000);
+        return () => {
+            clearTimeout(timeOut);
+        };
+    }, []);
 
     if (loading) {
         return (
