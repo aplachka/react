@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Main from '../components/Main/Main';
-import Header from '../components/Header/Header';
+import Header from '../components/Header';
 import { CssBaseline } from '@material-ui/core';
 import { AppContextProvider } from '../context/app-context';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
