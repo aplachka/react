@@ -1,8 +1,8 @@
 import React from 'react';
 import { Checkbox, CardHeader, IconButton, Button } from '@material-ui/core';
 import { Save, Clear, Edit } from '@material-ui/icons';
-import Input from '../../../Input/Input';
 import './MyCardHeader.css';
+import CardInputHeader from './CardInputHeader';
 
 const MyCardHeader = (props) => {
     const [title, setTitle] = React.useState({
@@ -24,41 +24,15 @@ const MyCardHeader = (props) => {
         props.checked && props.onChecked(false);
     };
 
-    const inputChangeHandler = (event) => {
-        const updatedTitle = { ...title };
-        updatedTitle.value = event.target.value;
-        updatedTitle.valid = checkValidity(
-            updatedTitle.value,
-            updatedTitle.validation,
-        );
-        updatedTitle.touched = true;
-
-        setTitle(updatedTitle);
-    };
-
-    const checkValidity = (value, rules) => {
-        let isValid = true;
-        if (rules.required) {
-            isValid = value.trim() !== '' && isValid;
-        }
-        return isValid;
-    };
-
     return (
         <CardHeader
             title={
                 props.editMode ? (
                     <div className="root">
-                        <Input
-                            elementType={title.elementType}
-                            elementConfig={title.elementConfig}
-                            validation={title.validation}
-                            name="title"
-                            defaultValue={props.title}
-                            invalid={!title.valid}
-                            touched={title.touched}
-                            shouldValidate={title.validation}
-                            changed={(event) => inputChangeHandler(event)}
+                        <CardInputHeader
+                            titleValue={props.title}
+                            title={title}
+                            onSetTitle={setTitle}
                         />
                         <Button type="submit" disabled={!title.valid}>
                             <Save />
@@ -80,6 +54,9 @@ const MyCardHeader = (props) => {
                             </IconButton>
                         )}
                         <Checkbox
+                            onDoubleClick={(e) => {
+                                e.stopPropagation();
+                            }}
                             color="primary"
                             checked={props.checked}
                             onChange={(event) =>

@@ -1,28 +1,48 @@
 import React from 'react';
 import { GridList, GridListTile } from '@material-ui/core';
 import MyCard from './MyCard/MyCard';
-import AppContext from '../../../context/app-context';
+import { check, update } from '../../../store/actions';
+import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 const CardList = (props) => {
-    const context = React.useContext(AppContext);
+    const history = useHistory();
+    const handleDoubleClick = (card) => {
+        history.push(`card/${card.id}`);
+    };
 
     return (
         <GridList cols={3} spacing={20}>
-            {context.cards.map((card) => (
+            {props.cards.map((card) => (
                 <GridListTile key={card.id}>
                     <MyCard
                         title={card.caption}
                         content={card.text}
                         editAllowed={props.editAllowed}
-                        onChecked={(checked) => context.check(card.id, checked)}
+                        onChecked={(checked) =>
+                            props.onCheckCard(card.id, checked)
+                        }
                         onSubmit={(title, content, checked) =>
-                            context.update(card.id, title, content, checked)
+                            props.onUpdateCard(card.id, title, content, checked)
                         }
                         checked={card.checked}
+                        onDoubleClick={(event) => handleDoubleClick(card)}
                     />
                 </GridListTile>
             ))}
         </GridList>
     );
 };
-export default CardList;
+
+const mapStateToProps = (state) => ({
+    cards: state.cards,
+});
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onCheckCard: (id, checked) => dispatch(check(id, checked)),
+        onUpdateCard: (id, caption, text, checked) =>
+            dispatch(update(id, caption, text, checked)),
+    };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(CardList);

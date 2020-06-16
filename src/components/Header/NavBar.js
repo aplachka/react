@@ -1,10 +1,12 @@
 import React from 'react';
 import { Toolbar, AppBar, Typography } from '@material-ui/core';
 import Badge from '@material-ui/core/Badge';
-import AppContext from '../../context/app-context';
+
 import { NavLink } from 'react-router-dom';
 import './NavBar.css';
 import { withRouter } from 'react-router-dom';
+
+import { connect } from 'react-redux';
 
 const inlineStyles = {
     spacer: {
@@ -12,9 +14,9 @@ const inlineStyles = {
     },
 };
 
-const NavBar = ({ location, ...props }) => {
-    const { getCardsCount } = React.useContext(AppContext);
-    const path = location.pathname;
+const NavBar = (props) => {
+    const path = props.location.pathname;
+
     return (
         <AppBar color="primary" position="static">
             <Toolbar>
@@ -37,7 +39,7 @@ const NavBar = ({ location, ...props }) => {
                         {path === '/' && (
                             <li>
                                 <Badge
-                                    badgeContent={getCardsCount()}
+                                    badgeContent={props.cards.length}
                                     color="secondary">
                                     <Typography color="inherit">
                                         Card's count
@@ -52,4 +54,10 @@ const NavBar = ({ location, ...props }) => {
     );
 };
 
-export default withRouter(NavBar);
+const mapStateToProps = (state) => {
+    return {
+        cards: state.cards,
+    };
+};
+
+export default connect(mapStateToProps)(withRouter(NavBar));

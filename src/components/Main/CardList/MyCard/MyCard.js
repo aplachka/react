@@ -22,7 +22,10 @@ const MyCard = (props) => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="content">
+        <form
+            onSubmit={handleSubmit}
+            className="content"
+            onDoubleClick={editing ? null : props.onDoubleClick}>
             <Card
                 className="card"
                 style={{ backgroundColor: props.checked && 'blue' }}>
@@ -33,8 +36,13 @@ const MyCard = (props) => {
                     onEditing={setEditing}
                     onChecked={props.onChecked}
                     checked={props.checked}
+                    onDoubleClick={props.onDoubleClick}
                 />
-                <CardBody text={props.content} editMode={editing} />
+                <CardBody
+                    text={props.content}
+                    editMode={editing}
+                    onDoubleClick={props.onDoubleClick}
+                />
             </Card>
         </form>
     );

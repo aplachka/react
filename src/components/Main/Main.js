@@ -5,7 +5,8 @@ import { Delete, Add } from '@material-ui/icons';
 import StyledCheckBox from './StyledCheckBox';
 import styled from 'styled-components';
 import CreateCardDialog from './CreateCardDialog';
-import AppContext from '../../context/app-context';
+import { create, remove } from '../../store/actions';
+import { connect } from 'react-redux';
 
 const StyledDiv = styled.div`
      {
@@ -13,8 +14,7 @@ const StyledDiv = styled.div`
     }
 `;
 
-const Main = () => {
-    const context = React.useContext(AppContext);
+const Main = (props) => {
     const [checked, setChecked] = React.useState(false);
     const [isCreacteDialogOpen, setOpen] = React.useState(false);
 
@@ -22,9 +22,10 @@ const Main = () => {
         setOpen(false);
     };
     const handleCreate = (title, content) => {
-        context.create(title, content);
+        props.onCreateCard(title, content);
         setOpen(false);
     };
+
     return (
         <Container>
             <StyledDiv>
@@ -36,7 +37,7 @@ const Main = () => {
                 <Button
                     variant="contained"
                     color="primary"
-                    onClick={context.remove}
+                    onClick={props.onRemoveCard}
                     startIcon={<Delete />}>
                     Delete selected cards
                 </Button>
@@ -59,4 +60,11 @@ const Main = () => {
         </Container>
     );
 };
-export default Main;
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onCreateCard: (title, content) => dispatch(create(title, content)),
+        onRemoveCard: () => dispatch(remove()),
+    };
+};
+export default connect(null, mapDispatchToProps)(Main);
