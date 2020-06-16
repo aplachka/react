@@ -53,16 +53,18 @@ const MyCardHeader = (props) => {
                                 <Edit />
                             </IconButton>
                         )}
-                        <Checkbox
-                            onDoubleClick={(e) => {
-                                e.stopPropagation();
-                            }}
-                            color="primary"
-                            checked={props.checked}
-                            onChange={(event) =>
-                                props.onChecked(event.target.checked)
-                            }
-                        />
+                        {props.onChecked && (
+                            <Checkbox
+                                onDoubleClick={(e) => {
+                                    e.stopPropagation();
+                                }}
+                                color="primary"
+                                checked={props.checked}
+                                onChange={(event) =>
+                                    props.onChecked(event.target.checked)
+                                }
+                            />
+                        )}
                     </div>
                 )
             }></CardHeader>
