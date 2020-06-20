@@ -6,8 +6,15 @@ import { AppContextProvider } from '../context/app-context';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import SignIn from '../components/Signin/SignIn';
 import PageNotFound from '../components/PageNotFound/PageNotFound';
+import CardDetails from '../components/Main/CardDetail';
+import { connect } from 'react-redux';
+import { fetchCards } from '../store/actions';
 
 class App extends Component {
+    componentDidMount() {
+        this.props.onFetchCards();
+    }
+
     render() {
         return (
             <BrowserRouter>
@@ -17,6 +24,7 @@ class App extends Component {
                     <Switch>
                         <Route path="/" exact component={Main} />
                         <Route path="/sign-in" exact component={SignIn} />
+                        <Route path="/card/:id" exact component={CardDetails} />
                         <Route component={PageNotFound} />
                     </Switch>
                 </AppContextProvider>
@@ -24,5 +32,10 @@ class App extends Component {
         );
     }
 }
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onFetchCards: () => dispatch(fetchCards()),
+    };
+};
 
-export default App;
+export default connect(null, mapDispatchToProps)(App);

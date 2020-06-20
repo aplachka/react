@@ -7,14 +7,21 @@ import {
     unstable_createMuiStrictModeTheme,
     ThemeProvider,
 } from '@material-ui/core/styles';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import reducer from './store/reducer';
+import thunk from 'redux-thunk';
 
+const store = createStore(reducer, applyMiddleware(thunk));
 const theme = unstable_createMuiStrictModeTheme();
 ReactDOM.render(
-    <React.StrictMode>
-        <ThemeProvider theme={theme}>
-            <App />
-        </ThemeProvider>
-    </React.StrictMode>,
+    <Provider store={store}>
+        <React.StrictMode>
+            <ThemeProvider theme={theme}>
+                <App />
+            </ThemeProvider>
+        </React.StrictMode>
+    </Provider>,
     document.getElementById('root'),
 );
 
