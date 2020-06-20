@@ -38,11 +38,6 @@ const mapStateToProps = (state) => ({
     cards: state.cards,
 });
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        onCheckCard: (id, checked) => dispatch(check(id, checked)),
-        onUpdateCard: (id, caption, text, checked) =>
-            dispatch(update(id, caption, text, checked)),
-    };
-};
+const mapDispatchToProps = { onCheckCard: check, onUpdateCard: update };
+
 export default connect(mapStateToProps, mapDispatchToProps)(CardList);

@@ -61,10 +61,8 @@ const Main = (props) => {
     );
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        onCreateCard: (title, content) => dispatch(create(title, content)),
-        onRemoveCard: () => dispatch(remove()),
-    };
+const mapDispatchToProps = {
+    onCreateCard: create,
+    onRemoveCard: remove,
 };
 export default connect(null, mapDispatchToProps)(Main);

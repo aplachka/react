@@ -35,12 +35,9 @@ const mapStateToProps = (state) => {
     };
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        onFetchCards: () => dispatch(fetchCards()),
-        onUpdateCard: (id, caption, text, checked) =>
-            dispatch(update(id, caption, text, checked)),
-    };
+const mapDispatchToProps = {
+    onFetchCards: fetchCards,
+    onUpdateCard: update,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CardDetail);
