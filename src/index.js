@@ -12,7 +12,16 @@ import { createStore, applyMiddleware } from 'redux';
 import reducer from './store/reducer';
 import thunk from 'redux-thunk';
 
-const store = createStore(reducer, applyMiddleware(thunk));
+const logger = (store) => {
+    return (next) => {
+        return (action) => {
+            console.log('Dispatching action:', action);
+            return next(action);
+        };
+    };
+};
+
+const store = createStore(reducer, applyMiddleware(logger, thunk));
 const theme = unstable_createMuiStrictModeTheme();
 ReactDOM.render(
     <Provider store={store}>
