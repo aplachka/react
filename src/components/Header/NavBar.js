@@ -21,7 +21,9 @@ const NavBar = (props) => {
         <AppBar color="primary" position="static">
             <Toolbar>
                 <Typography color="inherit">
-                    React simple application
+                    {props.isLoggedIn
+                        ? `Hi ${props.user.username}`
+                        : 'React simple application'}
                 </Typography>
                 <span style={inlineStyles.spacer}></span>
                 <nav className="NavBar">
@@ -32,10 +34,25 @@ const NavBar = (props) => {
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink to={{ pathname: '/sign-in' }}>
-                                Sign in
-                            </NavLink>
+                            {props.isLoggedIn ? (
+                                <NavLink to={{ pathname: '/sign-out' }}>
+                                    Logout
+                                </NavLink>
+                            ) : (
+                                <NavLink to={{ pathname: '/sign-in' }}>
+                                    Sign in
+                                </NavLink>
+                            )}
                         </li>
+
+                        {props.isLoggedIn && props.user.isAdmin && (
+                            <li>
+                                <NavLink to={{ pathname: '/settings' }}>
+                                    Settings
+                                </NavLink>
+                            </li>
+                        )}
+
                         {path === '/' && (
                             <li>
                                 <Badge
@@ -56,7 +73,9 @@ const NavBar = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        cards: state.cards,
+        cards: state.cardReducer.cards,
+        isLoggedIn: state.loginReducer.isLoggedIn,
+        user: state.loginReducer.user,
     };
 };
 

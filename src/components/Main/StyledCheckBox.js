@@ -20,7 +20,7 @@ const StyledCheckBox = (props) => {
             control={
                 <Checkbox
                     checked={props.checked}
-                    onChange={(event) => props.onChecked(event.target.checked)}
+                    onChange={() => props.onChecked(props.checked)}
                 />
             }
             label={props.label}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import MyCard from './CardList/MyCard/MyCard';
-import { fetchCards, update } from '../../store/actions';
+import { fetchCards, update } from '../../store/actions/cardActions';
 
 const CardDetail = (props) => {
     if (!props.cards || props.cards.length === 0) {
@@ -16,8 +16,8 @@ const CardDetail = (props) => {
             <MyCard
                 title={cardDetails.caption}
                 content={cardDetails.text}
-                editing={true}
-                editAllowed={true}
+                editing={!props.viewOnly}
+                editAllowed={!props.viewOnly}
                 onSubmit={(title, content, checked) =>
                     props.onUpdateCard(cardId, title, content, checked)
                 }
@@ -31,7 +31,8 @@ const CardDetail = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        cards: state.cards,
+        cards: state.cardReducer.cards,
+        viewOnly: state.viewOnlyModeReducer.viewOnly,
     };
 };
 
