@@ -1,13 +1,13 @@
-import * as actions from './actions';
+import * as actionTypes from '../actions/actionTypes';
 import { v4 as uuidv4 } from 'uuid';
 
 const initialState = {
     cards: [],
 };
 
-const reducer = (state = initialState, action) => {
+const cardReducer = (state = initialState, action) => {
     switch (action.type) {
-        case actions.CREATE_CARD:
+        case actionTypes.CREATE_CARD:
             return Object.assign({}, state, {
                 cards: [
                     {
@@ -19,10 +19,10 @@ const reducer = (state = initialState, action) => {
                     ...state.cards,
                 ],
             });
-        case actions.REMOVE_CARD:
+        case actionTypes.REMOVE_CARD:
             return { ...state, cards: state.cards.filter((v) => !v.checked) };
 
-        case actions.UPDATE_CARD:
+        case actionTypes.UPDATE_CARD:
             const card = {
                 id: action.id,
                 caption: action.caption,
@@ -33,7 +33,7 @@ const reducer = (state = initialState, action) => {
                 _card.id === card.id ? card : _card,
             );
             return { ...state, cards: updatedArray };
-        case actions.CHECK_CARD:
+        case actionTypes.CHECK_CARD:
             const newArray = state.cards.map((_card) =>
                 _card.id === action.id
                     ? { ..._card, checked: action.checked }
@@ -41,7 +41,7 @@ const reducer = (state = initialState, action) => {
             );
             return { ...state, cards: newArray };
 
-        case actions.GET_CARDS:
+        case actionTypes.GET_CARDS:
             return { ...state, cards: action.cards };
 
         default:
@@ -49,4 +49,4 @@ const reducer = (state = initialState, action) => {
     }
 };
 
-export default reducer;
+export default cardReducer;

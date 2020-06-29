@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core/styles';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-import reducer from './store/reducer';
+import rootReducer from './store/reducers/index';
 import thunk from 'redux-thunk';
 
 const logger = (store) => {
@@ -21,7 +21,8 @@ const logger = (store) => {
     };
 };
 
-const store = createStore(reducer, applyMiddleware(logger, thunk));
+const store = createStore(rootReducer, applyMiddleware(logger, thunk));
+console.log(store.getState());
 const theme = unstable_createMuiStrictModeTheme();
 ReactDOM.render(
     <Provider store={store}>

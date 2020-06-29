@@ -1,23 +1,18 @@
 import axios from 'axios';
-
-export const CREATE_CARD = 'CREATE_CARD ';
-export const REMOVE_CARD = 'REMOVE_CARD';
-export const UPDATE_CARD = 'UPDATE_CARD';
-export const CHECK_CARD = 'CHECK_CARD';
-export const GET_CARDS = 'GET_CARDS';
+import * as actionTypes from './actionTypes';
 
 export const create = (title, content) => ({
-    type: CREATE_CARD,
+    type: actionTypes.CREATE_CARD,
     title,
     content,
 });
 
 export const remove = () => ({
-    type: REMOVE_CARD,
+    type: actionTypes.REMOVE_CARD,
 });
 
 export const update = (id, caption, text, checked) => ({
-    type: UPDATE_CARD,
+    type: actionTypes.UPDATE_CARD,
     id,
     caption,
     text,
@@ -25,7 +20,7 @@ export const update = (id, caption, text, checked) => ({
 });
 
 export const check = (id, checked) => ({
-    type: CHECK_CARD,
+    type: actionTypes.CHECK_CARD,
     id,
     checked,
 });
@@ -38,7 +33,7 @@ export const fetchCards = () => {
             )
             .then((response) => {
                 dispatch({
-                    type: GET_CARDS,
+                    type: actionTypes.GET_CARDS,
                     cards: response.data.slice(0, 15).map((v) => {
                         return {
                             id: v.Number,

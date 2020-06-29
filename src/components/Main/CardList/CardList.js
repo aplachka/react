@@ -1,7 +1,7 @@
 import React from 'react';
 import { GridList, GridListTile } from '@material-ui/core';
 import MyCard from './MyCard/MyCard';
-import { check, update } from '../../../store/actions';
+import { check, update } from '../../../store/actions/cardActions';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
@@ -35,7 +35,7 @@ const CardList = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-    cards: state.cards,
+    cards: state.cardReducer.cards,
 });
 
 const mapDispatchToProps = { onCheckCard: check, onUpdateCard: update };

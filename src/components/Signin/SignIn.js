@@ -1,8 +1,15 @@
 import React from 'react';
 import { Button, Grid } from '@material-ui/core';
 import Input from '../Input/Input';
+import { connect } from 'react-redux';
+import { login } from '../../store/actions/authActions';
+import { useHistory } from 'react-router-dom';
 
-const SignIn = () => {
+const SignIn = ({ onLogin }) => {
+    const adminUserName = 'testAdmin@gmail.com';
+    const adminPassword = '12345yuiopp';
+
+    const history = useHistory();
     const [signinForm, setSignInForm] = React.useState({
         userName: {
             elementType: 'input',
@@ -65,11 +72,14 @@ const SignIn = () => {
 
     const signInHandler = (event) => {
         event.preventDefault();
-        const formData = {};
-        for (let formElementIdentifier in signinForm) {
-            formData[formElementIdentifier] =
-                signinForm[formElementIdentifier].value;
-        }
+        const isAdmin =
+            signinForm.userName.value === adminUserName &&
+            signinForm.password.value === adminPassword;
+        onLogin(
+            signinForm.userName.value,
+            signinForm.password.value,
+            isAdmin,
+        ).then(() => history.push('/'));
     };
 
     const checkValidity = (value, rules) => {
@@ -114,6 +124,7 @@ const SignIn = () => {
                     />
                 ))}
                 <Button
+                    type="submit"
                     variant="contained"
                     color="primary"
                     style={{ marginLeft: 10 }}
@@ -124,4 +135,9 @@ const SignIn = () => {
         </Grid>
     );
 };
-export default SignIn;
+
+const mapDispatchToProps = {
+    onLogin: login,
+};
+
+export default connect(null, mapDispatchToProps)(SignIn);
