@@ -6,7 +6,7 @@ import './MyCard.css';
 import withLoadingDelay from '../../../../hoc/WithLoadingDelay';
 import PropTypes from 'prop-types';
 
-const MyCard = (props) => {
+export const MyCard = (props) => {
     const [editing, setEditing] = React.useState(false);
 
     React.useEffect(() => {
